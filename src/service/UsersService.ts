@@ -12,9 +12,8 @@ class UsersService {
 
   async create( email : string ) {
     // VERIFICAR SE USUÁRIO EXISTE
-    const userExists = await this.messagesRepository.findOne({
-      email
-    });
+    const userExists = await this.findByEmail(email);
+
     // SE NÃO EXISTIR, SALVAR NO DB
     if(userExists)
       return userExists
@@ -28,5 +27,14 @@ class UsersService {
 
     return user;
   }
+
+  async findByEmail( email : string ) {
+    // VERIFICAR SE USUÁRIO EXISTE
+    return await this.messagesRepository.findOne({
+      email
+    });
+  }
+
+
 }
 export { UsersService }
